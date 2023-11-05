@@ -41,4 +41,28 @@ def test_mask_word_no_guesses():
     word = "elephant"
     masked_word = hangman.get_mask_word(word, guesses)
     assert masked_word == "--------"
+    
+def test_mask_word_single_wrong_guess():
+    guesses = ['x']
+    word = "elephant"
+    masked_word = hangman.get_mask_word(word, guesses)
+    assert masked_word == "--------"
+
+def test_mask_word_single_correct_guess():
+    guesses = ['t']
+    word = "elephant"
+    masked_word = hangman.get_mask_word(word, guesses)
+    assert masked_word == "-------t"
+
+def test_mask_word_two_correct_guesses():
+    guesses = ['p','t']
+    word = "elephant"
+    masked_word = hangman.get_mask_word(word, guesses)
+    assert masked_word == "---p---t"
+
+def test_mask_word_single_guess_multiple_occurrence():
+    guesses = ['e', 'p','t']
+    word = "elephant"
+    masked_word = hangman.get_mask_word(word, guesses)
+    assert masked_word == "e-ep---t"
 
