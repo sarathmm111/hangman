@@ -33,3 +33,16 @@ def get_status(secret_word, turns_remaining, guesses):
 Turns remaining : {turns_remaining}
 Guesses so far : {guesses}
 """
+def play_round(secret_word, guesses, guess, turns_remaining):
+    if guess in guesses:
+        return guesses, turns_remaining, "next"
+    guesses.append(guess)
+    if "-" not in get_mask_word(secret_word, guesses): 
+        # Everything has been guessed
+        return guesses, turns_remaining, "game_won"
+
+    if guess not in secret_word:
+        turns_remaining -= 1
+        if turns_remaining == 0:
+            return guesses, turns_remaining, "game_over"
+    return guesses, turns_remaining, "next"
