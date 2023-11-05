@@ -79,3 +79,67 @@ Turns remaining : 75
 Guesses so far : icx
 """
 
+def test_play_round_correct_guess():
+    secret_word = "rhino"
+    guesses = []
+    guess = "i"
+    turns_remaining = 8
+    guesses, turns_remaining, next_action = hangman.play_round(secret_word,
+                                                               guesses,
+                                                               guess,
+                                                               turns_remaining)
+    assert guesses == ['i']
+    assert turns_remaining == 8
+    assert next_action == "next"
+
+def test_play_round_wrong_guess_game_not_over():
+    secret_word = "rhino"
+    guesses = ['q']
+    guess = "x"
+    turns_remaining = 8
+    guesses, turns_remaining, next_action = hangman.play_round(secret_word,
+                                                               guesses,
+                                                               guess,
+                                                               turns_remaining)
+    assert guesses == ['q','x']
+    assert turns_remaining == 7
+    assert next_action == "next"
+
+    
+def test_play_round_wrong_guess_game_over():
+    secret_word = "rhino"
+    guesses = ['q']
+    guess = "x"
+    turns_remaining = 1
+    guesses, turns_remaining, next_action = hangman.play_round(secret_word,
+                                                               guesses,
+                                                               guess,
+                                                               turns_remaining)
+    assert next_action == "game_over"
+
+
+def test_play_round_game_win():
+    secret_word = "rhino"
+    guesses = ['r','h', 'i', 'n']
+    guess = "o"
+    turns_remaining = 1
+    guesses, turns_remaining, next_action = hangman.play_round(secret_word,
+                                                               guesses,
+                                                               guess,
+                                                               turns_remaining)
+    assert next_action == "game_won"
+
+def test_play_round_repeated_guess():
+    secret_word = "rhino"
+    guesses = ['r','h']
+    guess = "h"
+    turns_remaining = 5
+    guesses, turns_remaining, next_action = hangman.play_round(secret_word,
+                                                               guesses,
+                                                               guess,
+                                                               turns_remaining)
+    assert guesses == ['r', 'h']
+    assert turns_remaining == 5
+    assert next_action == "next"
+  
+
